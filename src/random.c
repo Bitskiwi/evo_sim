@@ -2,10 +2,18 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 #include "random.h"
 
+// RANDOM INIT
+
+void init_rand(){
+	srand(time(NULL));
+}
+
+// RANDOM FUNCTION
+
 int rando(int min, int max){
-	srand(time(0));
-	int r =((rand() / RAND_MAX) * (max - min + 1)) + min;
+	int r = rand() % (max + 1);
 	return r;
 }
