@@ -24,6 +24,7 @@ void sim(int org_count, int elim_min, int elim_max){                            
 		system("clear");
 		surface = reset_canvas(surface, '.');
 		for(int i = 0; i < EOA(list); i++){
+			list.organisms[i] = move_org(list.organisms[i], 40, 20);
 			surface = plot(surface, '#', list.organisms[i].x, list.organisms[i].y);
 		}
 		render_canvas(surface);
