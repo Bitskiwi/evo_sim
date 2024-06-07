@@ -1,6 +1,7 @@
 // INCLUDES
 
 #include "organism.h"
+#include "random.c"
 
 // ORGANISM LIST EOA
 
@@ -67,8 +68,21 @@ struct organism_list nat_select(struct organism_list list, int zone_p1, int zone
 
 // ORGANISM REPRODUCTION
 
-struct organism_list repro_org(struct organism_list list){
-	for(int i = 0; i < EOA(list); i++){
-		
+struct organism_list repro_org(struct organism_list list, int max_x){
+	struct organism_list list_copy = list;
+	for(int i = 0; i < EOA(list_copy); i++){
+		int x = list.organisms[i].x;
+		int y = list.organisms[i].y;
+		int task_x = list.organisms[i].task_x;
+		int task_y = list.organisms[i].task_y;
+		int dest_x = list.organisms[i].x + 1;
+		x += rando(-1, 1);
+		y += rando(-1, 1);
+		if(rando(0, 2) == 0){
+			task_x = rando(-1, 1);
+			task_y = rando(-1, 1);
+		}
+		list = new_org(list, x, y, task_x, task_y);
 	}
+	return list;
 }

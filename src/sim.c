@@ -3,7 +3,6 @@
 #include <string.h>
 #include "lib/render.c/shape.c"
 #include "organism.c"
-#include "random.c"
 
 // SIM LOOP
 
@@ -28,7 +27,7 @@ void sim(int org_count, int elim_min, int elim_max){                            
 		}
 		render_canvas(surface);
 		printf("Cycle: %i", cycles, "\n");
-		printf("\nCommands:\n- quit\n- jump (jump (n) cycles)\n- natsel (create a kill zone to simulate natural selection)\n>");
+		printf("\nCommands:\n- quit\n- jump (jump (n) cycles)\n- natsel (create a kill zone to simulate natural selection)\n- repro (organisms perform mitosis and could mutate)\n>");
 		if(cycle_skips == 0){
 			char cmd[100];
 			scanf("%s", &cmd);
@@ -44,6 +43,9 @@ void sim(int org_count, int elim_min, int elim_max){                            
 			}
 			if(strcmp(cmd, "natsel") == 0){
 				list = nat_select(list, 0, 20);
+			}
+			if(strcmp(cmd, "repro") == 0){
+				list = repro_org(list, 40);
 			}
 		} else {
 			cycle_skips--;
