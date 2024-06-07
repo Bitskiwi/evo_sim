@@ -25,6 +25,15 @@ struct organism_list new_org(struct organism_list list, int x, int y, int task_x
 	return list;
 }
 
+// REMOVE ORGANISM
+
+struct organism_list del_org(struct organism_list list, int index){
+	for(int i = index; list.organisms[i].init != 0; i++){
+		list.organisms[i] = list.organisms[i + 1];
+	}
+	return list;
+}
+
 // ORGANISM MOVEMENT
 
 struct organism move_org(struct organism org, int max_x, int max_y){
@@ -41,4 +50,25 @@ struct organism move_org(struct organism org, int max_x, int max_y){
 		}
 	}
 	return org;
+}
+
+// NATURAL SELECTION
+
+struct organism_list nat_select(struct organism_list list, int zone_p1, int zone_p2){
+	for(int i = 0; i < EOA(list); i++){
+		if(list.organisms[i].x >= zone_p1){
+			if(list.organisms[i].x <= zone_p2){
+				list = del_org(list, i);
+			}
+		}
+	}
+	return list;
+}
+
+// ORGANISM REPRODUCTION
+
+struct organism_list repro_org(struct organism_list list){
+	for(int i = 0; i < EOA(list); i++){
+		
+	}
 }

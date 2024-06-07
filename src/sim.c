@@ -15,12 +15,11 @@ void sim(int org_count, int elim_min, int elim_max){                            
 	int cycles = 0;
 	int cycle_skips = 0;
 	for(int i = 0; i < org_count; i++){                                                  // iterate 
-		list = new_org(list, rando(1,39), rando(1,19), rando(-1,1), rando(-1,1));
+		list = new_org(list, rando(1, 39), rando(1, 19), rando(-1, 1), rando(-1, 1));
 	}
 	printf("press ENTER to continue...");
 	getchar();
 	while(1){
-		cycles++;
 		system("clear");
 		surface = reset_canvas(surface, '.');
 		for(int i = 0; i < EOA(list); i++){
@@ -29,19 +28,26 @@ void sim(int org_count, int elim_min, int elim_max){                            
 		}
 		render_canvas(surface);
 		printf("Cycle: %i", cycles, "\n");
-		printf("\n/q (quit)\n/j (jump (n) cycles)\n");
+		printf("\nCommands:\n- quit\n- jump (jump (n) cycles)\n- natsel (create a kill zone to simulate natural selection)\n>");
 		if(cycle_skips == 0){
 			char cmd[100];
 			scanf("%s", &cmd);
-			if(strcmp(cmd, "/q") == 0){
+			if(strcmp(cmd, "quit") == 0){
 				break;
 			}
-			if(strcmp(cmd, "/j") == 0){
+			if(strcmp(cmd, "jump") == 0){
 				printf("How many cycles to jump? ");
 				scanf("%i", &cycle_skips);
+			}
+			if(strcmp(cmd, "delete") == 0){
+				list = del_org(list, rando(0, EOA(list)));
+			}
+			if(strcmp(cmd, "natsel") == 0){
+				list = nat_select(list, 0, 20);
 			}
 		} else {
 			cycle_skips--;
 		}
+		cycles++;
 	}
 }
